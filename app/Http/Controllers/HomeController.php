@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Events\LoginHistory;
+use App\Models\Log;
+use Illuminate\Database\Eloquent\Model;
 
 class HomeController extends Controller
 {
@@ -25,7 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = auth()->user();
-        dd($user);
+        
+
+        $model = new Log(['user_id' => $user->id]); // Create a new model instance
+
+        $model->save();
+        
+        $models = Log::all();
+        // dd($models);Z
         $users = User::all();
 
         return view('home', compact('users'));
