@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Events\LoginHistory;
+use App\Events\LoginRecord;
 
 class LoginController extends Controller
 {
@@ -45,7 +46,9 @@ class LoginController extends Controller
     {
         $user = auth()->user();
 
-        event(new LoginHistory($user));
+        event(new LoginHistory($user)); // not working
+
+        LoginRecord::dispatch(($user));
     }
 
 }

@@ -43,7 +43,10 @@
                 <td>{{ $user->name }}</td>
                 <td> {{ $user->email }}</td>
                 <td>Jacob</td>
-                <td>Thornton</td>
+                @if ( count($user->logs) != 0 )
+                <td>{{ $user->logs->last()->created_at }} </td>
+                @endif
+                <td>{{ $user->logs }}</td>
                 <td> {{ $user }}</td>
             </tr>
             @endforeach
